@@ -1,0 +1,26 @@
+GET http://localhost:3000/api/posts HTTP/1.1
+
+### 
+
+POST http://localhost:3000/api/posts HTTP/1.1
+content-type: application/json
+
+{
+    "title": "mi primer post",
+    "content": "mi primer post content"
+}
+
+### 
+
+PUT http://localhost:3000/api/posts/595bc1234da3ae2e6b1031bc
+Content-Type: application/json
+
+{
+    "title": "MI POST ACTUALIZADO",
+    "content": "asdasdasd"
+}
+
+
+### 
+
+DELETE http://localhost:3000/api/posts/595bc1254da3ae2e6b1031c2

@@ -1,0 +1,52 @@
+<base-card>
+  <base-card-title>
+    <h2>Formulario de Clientes</h2>
+  </base-card-title>
+  <base-card-body class="form">
+      <div class="form__article">
+        <h3>Datos personales</h3>
+
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input [(ngModel)]="cliente.cedula" class="mdl-textfield__input" type="text" id="cedula" placeholder="Cedula"/>
+          </div>
+
+          <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input [(ngModel)]="cliente.nombre" class="mdl-textfield__input" type="text" id="nombre" placeholder="Nombre completo"/>
+          </div>
+        </div>
+
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input [(ngModel)]="cliente.direccion" class="mdl-textfield__input" type="text" id="direccion" placeholder="Dirección"/>
+            </div>
+  
+            <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input [(ngModel)]="cliente.telefono" class="mdl-textfield__input" type="text" id="telefono" placeholder="Telefono"/>
+            </div>
+        </div>
+      </div>
+
+      <div class="form__action">
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isInfoReliable">
+          <input #isInfoReliable type="checkbox" id="isInfoReliable" class="mdl-checkbox__input" required/>
+          <span class="mdl-checkbox__label">Confirmar registro</span>
+        </label>
+        <button (click)="saveCliente()" id="submit_button"
+                class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          Enviar
+        </button>
+      </div>
+  </base-card-body>
+</base-card>
+
+<div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h1 class="mdl-card__title-text">Clientes registrados</h1>
+    </base-card-title>
+    <base-card-body class="no-padding">
+    
+    </base-card-body>
+  </base-card>
+</div>
