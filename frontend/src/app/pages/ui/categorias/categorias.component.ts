@@ -1,15 +1,15 @@
 import { AfterViewInit, Component, HostBinding, OnInit } from '@angular/core';
 
 import { UpgradableComponent } from 'theme/components/upgradable';
-import { clientesService } from './clientesService';
+import { categoriasService } from './categoriasService';
 import swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-clientes',
-  templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.scss'],
+  selector: 'app-categorias',
+  templateUrl: './categorias.component.html',
+  styleUrls: ['./categorias.component.scss'],
 })
-export class ClientesComponent implements OnInit {
+export class CategoriasComponent implements OnInit {
   @HostBinding('class.mdl-grid') private readonly mdlGrid = true;
   @HostBinding('class.mdl-cell') private readonly mdlCell = true;
   @HostBinding('class.mdl-cell--12-col-desktop') private readonly mdlCell12ColDesktop = true;
@@ -19,21 +19,22 @@ export class ClientesComponent implements OnInit {
 
  
   public response:any = [];
-  public clientess:any = [];
+  public categoriass:any = [];
   public dni: String;
   public info:any = [];
 
 
-  constructor(private clientesService : clientesService) {}
+  constructor(private categoriasService : categoriasService) {}
 
   //Action for the button
   btnAction:string;
   //Variables to store data
   cliente = {_id:null, cedula:null, nombre:null, direccion:null, telefono:null};
+  categoria = {_id:null, nombre:null, descripcion:null};
 
   ngOnInit(): void {
     this.info.push("Guardar");
-    this.clientesService.getRols().subscribe(
+    this.categoriasService.getRols().subscribe(
       res => {
         this.response = res;
         console.log(res);
@@ -45,15 +46,14 @@ export class ClientesComponent implements OnInit {
 
   cargarTabla(respuesta){
     respuesta.clientes.forEach((element, index )=> {
-      this.clientess.push(
-        {_id:element._id, 
-          cedula:element.cedula, 
+      this.categoriass.push(
+        {_id:element._id,
           nombre:element.nombre,
-          direccion:element.direccion,
-          telefono:element.telefono
+          descripcion:element.descripcion,
+          fecha:element.fechaCreación
         });
     });
-    console.log(this.clientess);
+    console.log(this.categoriass);
   }
 
   openModal(modal) {
@@ -65,10 +65,8 @@ export class ClientesComponent implements OnInit {
   }
 
   limpiarCampos(){
-    this.cliente.cedula ="";
-    this.cliente.nombre ="";
-    this.cliente.direccion ="";
-    this.cliente.telefono ="";
+    this.categoria.nombre ="";
+    this.categoria.descripcion ="";
   }
 
   mensajeEliminar(){
@@ -112,19 +110,17 @@ export class ClientesComponent implements OnInit {
   }
 
   cargarActualizar(identificador){
-    this.cliente._id = identificador._id
-    this.cliente.cedula = identificador.cedula;
-    this.cliente.nombre = identificador.nombre;
-    this.cliente.direccion = identificador.direccion;
-    this.cliente.telefono = identificador.telefono;
+    this.categoria._id = identificador._id
+    this.categoria.nombre = identificador.nombre;
+    this.categoria.descripcion = identificador.descripcion;
     this.mensajeCargarActualizar();
   }
 
   onDelete(identificador){
-    const repu = this.clientess;
-    const resp = confirm("Estas seguro de eliminar el cliente ");
+    const repu = this.categoriass;
+    const resp = confirm("Estas seguro de eliminar la categoria");
     if(resp){
-      this.clientesService.deleteRol(identificador)
+      this.categoriasService.deleteRol(identificador)
       .subscribe(data => {
         console.log(data + "data");
         for(let i = 0; i < repu.length; i++){
@@ -140,24 +136,22 @@ export class ClientesComponent implements OnInit {
     }
   }
 
-  onUpdate(identificador, id){
+  onUpdate(identificador){
+    console.log("este es el identificador");
     console.log(identificador);
     this.info.push("Editar");
-    this.dni = id;
     this.cargarActualizar(identificador);
   }
 
   saveUpdate(){
-    if(this.cliente.cedula == "" || this.cliente.nombre == "" 
-      || this.cliente.direccion == "" || this.cliente.telefono == ""){
+    if(this.categoria.nombre == "" || this.categoria.descripcion == ""){
 
         this.mensajeCamposVacios();
-        console.log("campos vacios" + 
-        this.cliente.cedula + this.cliente.nombre + this.cliente.direccion + this.cliente.telefono);
+        console.log("campos vacios" + this.categoria.nombre + this.categoria.descripcion);
 
       } else {
-        console.log(this.cliente);
-        this.clientesService.updateRol(this.cliente)
+        console.log(this.categoria);
+        this.categoriasService.updateRol(this.categoria)
         .subscribe(rep => {
           this.response = rep;
           console.log("se actualizaron los datos");
@@ -169,27 +163,23 @@ export class ClientesComponent implements OnInit {
   }
 
   //Save data obtained in the form
-  saveCliente(){
-    if(this.cliente.cedula == null || this.cliente.nombre == null 
-      || this.cliente.direccion == null || this.cliente.telefono == null){
+  saveCategoria(){
+    if(this.categoria.nombre == null || this.categoria.descripcion == null){
 
       this.mensajeCamposVacios();
-      console.log("campos vacios" + 
-      this.cliente.cedula + this.cliente.nombre + this.cliente.direccion + this.cliente.telefono);
+      console.log("campos vacios" + this.categoria.nombre + this.categoria.descripcion);
 
     } else {
-      console.log(this.cliente);
+      console.log(this.categoria);
 
-      let sendCliente = {
-        cedula:this.cliente.cedula, 
-        nombre:this.cliente.nombre, 
-        direccion:this.cliente.direccion, 
-        telefono:this.cliente.telefono}
+      let sendCategoria = {
+        nombre:this.categoria.nombre, 
+        descripcion:this.categoria.descripcion}
 
-      this.clientesService.addRol(sendCliente)
-      .subscribe(clientes =>{
+      this.categoriasService.addRol(sendCategoria)
+      .subscribe(categorias =>{
 
-        this.response = clientes;
+        this.response = categorias;
         console.log("se guardaron los datos");
         console.log(this.response);
         this.mensajeGuardar();

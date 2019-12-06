@@ -12,6 +12,8 @@ import { DashboardModule } from './pages/dashboard';
 import { Dashboard2Module } from './pages/dashboard2';
 import { FormsModule } from './pages/forms';
 import { clientesService } from './pages/ui/clientes/clientesService';
+import { categoriasService } from './pages/ui/categorias/categoriasService';
+import { productosService } from './pages/ui/productos/productosService';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,10 +25,12 @@ import { clientesService } from './pages/ui/clientes/clientesService';
     Dashboard2Module,
     FormsModule,
     ChartsModule,
-    HttpClientModule,
+    HttpClientModule
   ],
   providers: [
     clientesService,
+    categoriasService,
+    productosService,
     AuthService,
     {
       provide: HTTP_INTERCEPTORS,

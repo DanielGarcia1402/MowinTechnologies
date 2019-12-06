@@ -8,14 +8,16 @@ import { SidebarComponent as BaseSidebarComponent } from 'theme/components/sideb
   templateUrl: '../../../theme/components/sidebar/sidebar.component.html',
 })
 export class SidebarComponent extends BaseSidebarComponent {
-  public title = 'darkboard';
+  public title = 'Mowin-Tech';
   public menu = [
     { name: 'Home', link: '/app/dashboard', icon: 'dashboard' },
     {
-      name: 'Clientes',
+      name: 'Opciones Basicas',
       children: [
         ...[
           'clientes',
+          'categorias',
+          'productos',
         ].map(ui => ({
           name: ui[0].toUpperCase() + ui.slice(1),
           link: `/ui/${ui}`,

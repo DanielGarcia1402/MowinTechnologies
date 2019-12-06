@@ -1,0 +1,69 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+<base-card>
+  <base-card-title>
+    <h2>Formulario de Categorias</h2>
+  </base-card-title>
+  <base-card-body class="form">
+      <div class="form__article">
+        <h3>Datos categoria</h3>
+
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input required="" [(ngModel)]="categoria.nombre" class="mdl-textfield__input" type="text" id="nombre" placeholder="Nombre Categoria"/>
+          </div>
+
+          <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input required="" [(ngModel)]="categoria.descripcion" class="mdl-textfield__input" type="text" id="descripcion" placeholder="Descripcion"/>
+          </div>
+        </div>
+      </div>
+
+      <div *ngFor="let boton of info">
+        <button *ngIf="boton == 'Guardar'" (click)="saveCategoria()" id="submit_button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          Enviar
+        </button><br>
+        <button *ngIf="boton == 'Editar'" (click)="saveUpdate()" id="submit_button" class="btn btn-info">
+          Actualizar
+        </button>
+      </div>
+  </base-card-body>
+</base-card>
+</div>
+
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h1 class="mdl-card__title-text">Categorias registrados</h1>
+    </base-card-title>
+    <base-card-body class="no-padding">
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+          <th style="color:#ffff">Id</th>
+          <th style="color:#ffff">Nombre</th>
+          <th style="color:#ffff">Descripción</th>
+          <th style="color:#ffff">Fecha Creación</th>
+          <th style="color:#ffff">Editar</th>
+          <th style="color:#ffff">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cat of categoriass; let i = index">
+          <td style="color:#ffff">{{ cat._id }}</td>
+          <td style="color:#ffff">{{ cat.nombre }}</td>
+          <td style="color:#ffff">{{ cat.descripcion}}</td>
+          <td style="color:#ffff">{{ cat.fecha}}</td>
+          <td>
+          <button type="button" class="btn btn-info" (click)="seventhModal" (click)="onUpdate(cat)">Editar</button>
+          </td>
+          <td>
+          <button type="button" class="btn btn-danger" (click)="onDelete(cat._id)">Eliminar</button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </base-card-body>
+  </base-card>
+</div>

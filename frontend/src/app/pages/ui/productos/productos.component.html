@@ -1,0 +1,101 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+<base-card>
+  <base-card-title>
+    <h2>Formulario de Productos</h2>
+  </base-card-title>
+  <base-card-body class="form">
+      <div class="form__article">
+        <h3>Datos productos</h3>
+
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input required="" [(ngModel)]="producto.nombre" class="mdl-textfield__input" type="text" id="nombre" placeholder="Nombre Producto"/>
+          </div>
+
+          <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input required="" [(ngModel)]="producto.precio" class="mdl-textfield__input" type="number" id="precio" placeholder="Precio"/>
+          </div>
+
+          <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+            <input required="" [(ngModel)]="producto.unidad" class="mdl-textfield__input" type="number" id="unidad" placeholder="Unidades - Cantidad"/>
+          </div>
+        </div>
+
+        <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input required="" [(ngModel)]="producto.imagen" class="mdl-textfield__input" type="text" id="imagen" placeholder="Imagen"/>
+            </div>
+  
+            <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input required="" [(ngModel)]="producto.proveedor" class="mdl-textfield__input" type="text" id="proveedor" placeholder="Proveedor"/>
+            </div>
+
+            <div class="mdl-cell mdl-cell--4-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <!-- <input required="" [(ngModel)]="producto.categoria" class="mdl-textfield__input" type="text" id="categoria" placeholder="Categoria"/> -->
+              <label>Categorias</label>
+              <select id="s1" [(ngModel)]="producto.categoria">
+                <option value=""></option>
+                <optgroup *ngFor="let cate of categoriass">
+                <option>{{cate.nombre}}</option>
+                </optgroup>
+              </select>
+            </div>
+
+        </div>
+      </div>
+
+      <div *ngFor="let boton of info">
+        <button *ngIf="boton == 'Guardar'" (click)="saveProducto()" id="submit_button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+          Enviar
+        </button><br>
+        <button *ngIf="boton == 'Editar'" (click)="saveUpdate()" id="submit_button" class="btn btn-info">
+          Actualizar
+        </button>
+      </div>
+  </base-card-body>
+</base-card>
+</div>
+
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
+  <base-card>
+    <base-card-title>
+      <h1 class="mdl-card__title-text">Productos registrados</h1>
+    </base-card-title>
+    <base-card-body class="no-padding">
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+          <th style="color:#ffff">Id</th>
+          <th style="color:#ffff">Nombre</th>
+          <th style="color:#ffff">Precio</th>
+          <th style="color:#ffff">Unidad</th>
+          <th style="color:#ffff">Imagen</th>
+          <th style="color:#ffff">Proveedor</th>
+          <th style="color:#ffff">Categoria</th>
+          <th style="color:#ffff">Editar</th>
+          <th style="color:#ffff">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pro of productoss; let i = index">
+          <td style="color:#ffff">{{ pro._id }}</td>
+          <td style="color:#ffff">{{ pro.nombre }}</td>
+          <td style="color:#ffff">{{ pro.precio}}</td>
+          <td style="color:#ffff">{{ pro.unidad}}</td>
+          <td style="color:#ffff">{{ pro.imagen }}</td>
+          <td style="color:#ffff">{{ pro.proveedor }}</td>
+          <td style="color:#ffff">{{ pro.categoria }}</td>
+          <td>
+          <button type="button" class="btn btn-info" (click)="seventhModal" (click)="onUpdate(pro)">Editar</button>
+          </td>
+          <td>
+          <button type="button" class="btn btn-danger" (click)="onDelete(pro._id)">Eliminar</button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
+    </base-card-body>
+  </base-card>
+</div>

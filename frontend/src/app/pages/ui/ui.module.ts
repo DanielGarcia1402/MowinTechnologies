@@ -9,13 +9,18 @@ import { CardsComponent } from './cards';
 import { ColorsComponent } from './colors';
 import { FormsComponent } from './forms';
 import { ClientesComponent } from './clientes';
+import { CategoriasComponent } from './categorias';
+import { ProductosComponent } from './productos';
 import { IconsComponent } from './icons';
 import { RightSidebarModule } from './right-sidebar';
 import { TablesComponent, TablesService } from './tables';
 import { TypographyComponent } from './typography';
 import { UIRoutingModule } from './ui-routing.module';
 import { clientesService } from './clientes/clientesService';
+import { categoriasService } from './categorias/categoriasService';
+import { productosService } from './productos/productosService';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-modal';
 
 @NgModule({
   imports: [
@@ -26,6 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     RightSidebarModule,
     FormsModule,
     ReactiveFormsModule,
+    ModalModule,
   ],
   declarations: [
     ButtonsComponent,
@@ -33,6 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ColorsComponent,
     FormsComponent,
     ClientesComponent,
+    CategoriasComponent,
+    ProductosComponent,
     IconsComponent,
     TypographyComponent,
     TablesComponent,
@@ -40,6 +48,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [
     TablesService,
     clientesService,
+    categoriasService,
+    productosService,
   ],
 })
 export class UIModule { }

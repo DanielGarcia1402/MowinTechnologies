@@ -1,3 +1,4 @@
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
 <base-card>
   <base-card-title>
     <h2>Formulario de Clientes</h2>
@@ -8,45 +9,97 @@
 
         <div class="mdl-grid">
           <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input [(ngModel)]="cliente.cedula" class="mdl-textfield__input" type="text" id="cedula" placeholder="Cedula"/>
+            <input required="" [(ngModel)]="cliente.cedula" class="mdl-textfield__input" type="number" id="cedula" placeholder="Cedula"/>
           </div>
 
           <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-            <input [(ngModel)]="cliente.nombre" class="mdl-textfield__input" type="text" id="nombre" placeholder="Nombre completo"/>
+            <input required="" [(ngModel)]="cliente.nombre" class="mdl-textfield__input" type="text" id="nombre" placeholder="Nombre completo"/>
           </div>
         </div>
 
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input [(ngModel)]="cliente.direccion" class="mdl-textfield__input" type="text" id="direccion" placeholder="Dirección"/>
+              <input required="" [(ngModel)]="cliente.direccion" class="mdl-textfield__input" type="text" id="direccion" placeholder="Dirección"/>
             </div>
   
             <div class="mdl-cell mdl-cell--6-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input [(ngModel)]="cliente.telefono" class="mdl-textfield__input" type="text" id="telefono" placeholder="Telefono"/>
+              <input required="" [(ngModel)]="cliente.telefono" class="mdl-textfield__input" type="number" id="telefono" placeholder="Telefono"/>
             </div>
         </div>
       </div>
 
-      <div class="form__action">
-        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="isInfoReliable">
-          <input #isInfoReliable type="checkbox" id="isInfoReliable" class="mdl-checkbox__input" required/>
-          <span class="mdl-checkbox__label">Confirmar registro</span>
-        </label>
-        <button (click)="saveCliente()" id="submit_button"
-                class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+      <div *ngFor="let boton of info">
+        <button *ngIf="boton == 'Guardar'" (click)="saveCliente()" id="submit_button" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
           Enviar
+        </button><br>
+        <button *ngIf="boton == 'Editar'" (click)="saveUpdate()" id="submit_button" class="btn btn-info">
+          Actualizar
         </button>
       </div>
   </base-card-body>
 </base-card>
+</div>
 
-<div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--6-col-tablet mdl-cell--4-col-phone">
+<div class="mdl-cell mdl-cell--12-col-desktop mdl-cell--12-col-tablet mdl-cell--4-col-phone">
   <base-card>
     <base-card-title>
       <h1 class="mdl-card__title-text">Clientes registrados</h1>
     </base-card-title>
     <base-card-body class="no-padding">
-    
+
+      <table class="table table-striped">
+        <thead>
+          <tr>
+          <th style="color:#ffff">Id</th>
+          <th style="color:#ffff">Cedula</th>
+          <th style="color:#ffff">Nombre</th>
+          <th style="color:#ffff">Direccion</th>
+          <th style="color:#ffff">Telefono</th>
+          <th style="color:#ffff">Editar</th>
+          <th style="color:#ffff">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cli of clientess; let i = index">
+          <td style="color:#ffff">{{ cli._id }}</td>
+          <td style="color:#ffff">{{ cli.cedula }}</td>
+          <td style="color:#ffff">{{ cli.nombre}}</td>
+          <td style="color:#ffff">{{ cli.direccion}}</td>
+          <td style="color:#ffff">{{ cli.telefono }}</td>
+          <td>
+          <button type="button" class="btn btn-info" (click)="seventhModal" (click)="onUpdate(cli, cli._id)">Editar</button>
+          </td>
+          <td>
+          <button type="button" class="btn btn-danger" (click)="onDelete(cli._id)">Eliminar</button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+
     </base-card-body>
   </base-card>
 </div>
+
+<modal #seventhModal [closeOnEscape]="false" [closeOnOutsideClick]="false">
+  <modal-header>
+    <h3>Ingrese los siguientes campos</h3>
+  </modal-header>
+  <modal-content>
+      <div class="form-group">
+          <label class="control-label">Tipo de Servicio</label>
+          <input  type="text" autofocus class="form-control" placeholder="Tipo de servicio (ejemplo: Agua)">
+          <span class="help-block sub-little-text">Tipo de Servicio.</span>
+  
+          <label class="control-label">Descripción del Servicio</label>
+          <textarea  cols="0" rows="10" class="form-control" placeholder="Descripción del servicio"></textarea>
+          <span class="help-block sub-little-text">Ingrese descripción.</span>
+  
+          <button type="button" class="btn btn-primary btn-with-icon" (click)="saveTypeServices(seventhModal)">
+            <i class="fa fa-check-circle"></i>Aceptar
+          </button>
+      </div>
+  </modal-content>
+  <modal-footer>
+    <button class="btn btn-primary" (click)="closeModal(seventhModal)">Cerrar</button>
+  </modal-footer>
+</modal>
